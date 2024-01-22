@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:658349184098:task-definition/actions_definition:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:658349184098:task-definition/actions_definition:2",
     "containerDefinitions": [
         {
             "name": "actions-test",
@@ -12,6 +12,12 @@
                     "hostPort": 80,
                     "protocol": "tcp",
                     "appProtocol": "http"
+                },
+                {
+                    "name": "actions-8000",
+                    "containerPort": 8000,
+                    "hostPort": 8000,
+                    "protocol": "tcp"
                 }
             ],
             "essential": true,
@@ -35,7 +41,7 @@
     "family": "actions_definition",
     "executionRoleArn": "arn:aws:iam::658349184098:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -78,7 +84,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-01-22T08:51:03.624Z",
+    "registeredAt": "2024-01-22T09:29:44.943Z",
     "registeredBy": "arn:aws:iam::658349184098:user/pooja.shrestha",
     "tags": []
 }
