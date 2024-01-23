@@ -1,60 +1,46 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:658349184098:task-definition/gh-def:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:658349184098:task-definition/gh-actions:5",
     "containerDefinitions": [
         {
             "name": "actions-test",
-            "image": "658349184098.dkr.ecr.ap-south-1.amazonaws.com/actions-test",
+            "image": "658349184098.dkr.ecr.ap-southeast-1.amazonaws.com/gh-actions:latest",
             "cpu": 0,
             "portMappings": [
                 {
                     "name": "actions-test-80-tcp",
-                    "containerPort": 80,
+                    "containerPort": 8000,
                     "hostPort": 80,
                     "protocol": "tcp",
                     "appProtocol": "http"
-                },
-                {
-                    "name": "actions-test-8000-tcp",
-                    "containerPort": 8000,
-                    "hostPort": 8000,
-                    "protocol": "tcp"
                 }
             ],
             "essential": true,
-            "environment": [],
-            "environmentFiles": [],
-            "mountPoints": [
-                {
-                    "sourceVolume": "new-volume-gh",
-                    "containerPath": "/mount/ebs",
-                    "readOnly": false
-                }
+            "entryPoint": [
+                "sh",
+                "-c"
             ],
+            "command": [
+                "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+            ],
+            "environment": [],
+            "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/gh-def",
-                    "awslogs-region": "ap-south-1",
+                    "awslogs-group": "/ecs/gh-actions",
+                    "awslogs-region": "ap-southeast-1",
                     "awslogs-stream-prefix": "ecs"
                 },
                 "secretOptions": []
             }
         }
     ],
-    "family": "gh-def",
-    "taskRoleArn": "arn:aws:iam::658349184098:role/gen-ai-fargate-docu-gpt-ecs-task-role",
+    "family": "gh-actions",
     "executionRoleArn": "arn:aws:iam::658349184098:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
-    "revision": 2,
-    "volumes": [
-        {
-            "name": "new-volume-gh",
-            "configuredAtLaunch": true
-        }
-    ],
+    "revision": 5,
+    "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
@@ -70,16 +56,7 @@
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
-            "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
             "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
@@ -87,19 +64,18 @@
     ],
     "placementConstraints": [],
     "compatibilities": [
-        "EC2",
-        "FARGATE"
+        "EC2"
     ],
     "requiresCompatibilities": [
         "EC2"
     ],
-    "cpu": "1024",
-    "memory": "3072",
+    "cpu": "256",
+    "memory": "512",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-01-22T10:57:10.659Z",
+    "registeredAt": "2024-01-23T09:26:39.687Z",
     "registeredBy": "arn:aws:iam::658349184098:user/pooja.shrestha",
     "tags": []
 }
